@@ -83,7 +83,6 @@ const SignupForm = () => {
       router.push("/dashboard");
     }
 
-    // await new Promise((resolve) => setTimeout(resolve, 1200));
     setIsLoading(false);
   };
 
@@ -163,7 +162,7 @@ const SignupForm = () => {
                   <FormItem>
                     <FormLabel>Full Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="John Doe" {...field} />
+                      <Input placeholder="Name Surname" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -179,7 +178,7 @@ const SignupForm = () => {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="johndoe@gmail.com"
+                        placeholder="mail@gmail.com"
                         type="email"
                         {...field}
                       />

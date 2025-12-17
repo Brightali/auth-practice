@@ -1,29 +1,14 @@
-"use client";
-
 import UserProfileCard from "@/components/UserProfileCard";
-import { toast } from "sonner";
+import { getSessionData } from "@/lib/get-session";
+import { redirect } from "next/navigation";
 
-const Index = () => {
-  // Mock user data - replace with real auth data when connected to backend
-  const user = {
-    name: "Sarah Johnson",
-    email: "sarah.johnson@example.com",
-    role: "Administrator",
-    photoUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face",
-  };
+const Dashboard = async () => {
+  const session = await getSessionData();
+  const user = session?.user;
 
-  const handleSignOut = () => {
-    toast("Signed out", {
-      description: "You have been successfully signed out.",
-    });
-  };
-
-  const handleViewUsers = () => {
-    toast("View Users", {
-      description: "Navigating to users list...",
-    });
-  };
+  if (!user) {
+    return redirect("/log-in");
+  }
 
   return (
     <div className="min-h-screen grid place-items-center bg-background">
@@ -39,18 +24,11 @@ const Index = () => {
             </p>
           </div>
 
-          <UserProfileCard
-            name={user.name}
-            email={user.email}
-            role={user.role}
-            photoUrl={user.photoUrl}
-            onSignOut={handleSignOut}
-            onViewUsers={handleViewUsers}
-          />
+          <UserProfileCard user={user} />
         </div>
       </main>
     </div>
   );
 };
 
-export default Index;
+export default Dashboard;

@@ -25,7 +25,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { signIn } from "@/lib/auth-client";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Separator } from "@radix-ui/react-separator";
 import { Github } from "lucide-react";
@@ -69,7 +69,7 @@ const LoginForm = () => {
       setError(error.message || "something went wrong");
       toast.error(`Error: e no work`);
     } else {
-      toast.success("Account created successfully!");
+      toast.success("Logged in Successfully!");
       router.push("/dashboard");
     }
 
@@ -140,7 +140,12 @@ const LoginForm = () => {
               </Button>
             </form>
           </Form>
-
+          <Link
+            href={"/forgot-password"}
+            className="  hover:text-primary/50 my-4 block"
+          >
+            Forgot Password?
+          </Link>
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <Separator className="w-full" />

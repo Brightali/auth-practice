@@ -65,13 +65,11 @@ const SignupForm = () => {
     setIsLoading(true);
     form.clearErrors();
 
-    console.log("submitting", { email, password, name });
-
     const { error } = await signUp.email({
       email,
       password,
       name,
-      callbackURL: "/",
+      // callbackURL: "/",
     });
 
     if (error) {

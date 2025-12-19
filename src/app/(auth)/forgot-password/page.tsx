@@ -48,6 +48,11 @@ export default function ForgotPassword() {
       email, // required
       redirectTo: "/reset-password",
     });
+
+    if (error) {
+      console.log("error sending mail");
+    }
+    form.reset;
   }
 
   return (

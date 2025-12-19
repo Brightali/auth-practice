@@ -64,6 +64,8 @@ export default function ResetPassword() {
         newPassword: newPassword,
         token,
       });
+      console.log("result", result);
+      console.log(newPassword);
 
       if (result.error) {
         setError(
@@ -74,7 +76,7 @@ export default function ResetPassword() {
       toast.success("Password reset successful");
       router.push("/log-in");
     } catch (e) {
-      setError("Failed to reset password. Please try again.");
+      setError("An unexpected error occurred");
       return;
     }
   }
@@ -94,7 +96,7 @@ export default function ResetPassword() {
             <p className="text-sm text-destructive">
               Invalid or expired reset token
             </p>
-          ) : isSubmitSuccessful ? (
+          ) : isSubmitSuccessful && !error ? (
             <div className="space-y-2 text-sm">
               <p className="font-medium">Password updated</p>
               <p className="text-muted-foreground">

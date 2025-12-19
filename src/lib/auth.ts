@@ -2,6 +2,9 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "@/lib/prisma";
 import { fa } from "zod/v4/locales";
+import { sendResetPasswordEmail } from "./email";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -10,29 +13,25 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
 
-    /////////////////////
-
     sendResetPassword: async ({ user, url }) => {
-      console.log(`reset password ${user.email} with link: ${url}`);
+      sendResetPasswordEmail({
+        to: user.email,
+        resetUrl: url,
+      });
     },
-  },
+    // onPasswordReset: async ({ user }) => {
+    //   // your logic here
+    //   toast.success(`Password reset successful`);
+    //   redirect("/log-in");
+    // },
 
-  ////////////////////////////
-
-  // sendResetPassword: async ({user, url, token}, request) => {
-  //     await sendEmail({
-  //       to: user.email,
-  //       subject: "Reset your password",
-  //       text: `Click the link to reset your password: ${url}`,
-  //     });
-  //   },
-
-  ///////////////////
-  user: {
-    additionalFields: {
-      role: {
-        type: "string",
-        input: false,
+    ///////////////////
+    user: {
+      additionalFields: {
+        role: {
+          type: "string",
+          input: false,
+        },
       },
     },
   },

@@ -1,10 +1,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "@/lib/prisma";
-import { fa } from "zod/v4/locales";
 import { sendResetPasswordEmail } from "./email";
-import { toast } from "sonner";
-import { redirect } from "next/navigation";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -19,13 +16,8 @@ export const auth = betterAuth({
         resetUrl: url,
       });
     },
-    // onPasswordReset: async ({ user }) => {
-    //   // your logic here
-    //   toast.success(`Password reset successful`);
-    //   redirect("/log-in");
-    // },
 
-    ///////////////////
+    ////////do this for adding custom fields to user model////////
     user: {
       additionalFields: {
         role: {
@@ -36,6 +28,6 @@ export const auth = betterAuth({
     },
   },
 });
-
+//infer and export the sesion and user type to add the field to the export
 export type Session = typeof auth.$Infer.Session;
 export type User = typeof auth.$Infer.Session.user;

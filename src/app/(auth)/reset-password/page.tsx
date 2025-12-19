@@ -58,14 +58,11 @@ export default function ResetPassword() {
   async function onSubmit({ newPassword }: ResetPasswordForm) {
     if (!token) return;
 
-    // 🔴 Replace with real API call
     try {
       const result = await resetPassword({
         newPassword: newPassword,
         token,
       });
-      console.log("result", result);
-      console.log(newPassword);
 
       if (result.error) {
         setError(
